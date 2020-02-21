@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import com.kserocki.repository.List.ListEntity;
 
-@Database(entities = {ListEntity.class, ItemEntity.class}, version = 2)
+@Database(entities = {ListEntity.class, ItemEntity.class}, version = 3, exportSchema = false)
 public abstract class ItemDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "Items.db";

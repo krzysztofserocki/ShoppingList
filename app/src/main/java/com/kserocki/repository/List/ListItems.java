@@ -1,4 +1,4 @@
-package com.kserocki.repository;
+package com.kserocki.repository.List;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;

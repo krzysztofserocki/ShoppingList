@@ -3,6 +3,7 @@ package com.kserocki.repository.List;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
@@ -29,6 +30,10 @@ public class ListEntity {
         this.name = name;
         this.isArchived = isArchived;
         this.createdAt = createdAt;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public boolean isArchived() {
