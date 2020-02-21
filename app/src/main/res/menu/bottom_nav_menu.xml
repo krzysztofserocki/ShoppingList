@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/all_lists_icon_foreground"
+        android:title="All" />
+    <item
+        android:icon="@drawable/planned_lists_icon_foreground"
+        android:title="Planned" />
+    <item
+        android:icon="@drawable/archived_lists_icon_foreground"
+        android:title="Archieved" />
+</menu>
