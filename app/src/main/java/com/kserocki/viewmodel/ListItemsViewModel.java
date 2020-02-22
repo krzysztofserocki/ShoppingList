@@ -18,7 +18,6 @@ import java.util.concurrent.ExecutionException;
 
 public class ListItemsViewModel extends AndroidViewModel {
     private ItemRepository itemRepository;
-    private MutableLiveData<ListEntity> mutableLiveData = new MutableLiveData<>();
     private LiveData<List<ListItems>> allListItems;
 
     public ListItemsViewModel(@NonNull Application application) {
@@ -27,25 +26,9 @@ public class ListItemsViewModel extends AndroidViewModel {
         allListItems = itemRepository.getAllListItemsOrderedByDate();
     }
 
-    public void insertList(String listName, boolean isArchived, List<ItemHelper> items) {
-        itemRepository.insert(listName, isArchived, items);
-    }
-
-    public void updateListItems(long listId, List<ItemEntity> itemEntity) {
-        itemRepository.updateListItems(listId, itemEntity);
-    }
-
-//    public void updateItemEntity(ItemEntity car) {
-//        itemRepository.updateItemEntity(car);
-//    }
-
-//    public void delete(Car car) {
-//        itemRepository.delete(car);
-//    }
-//
-//    public void deleteAllCars() {
-//        itemRepository.deleteAllCars();
-//    }
+    // ========================
+    // =====    GETTERS   =====
+    // ========================
 
     public LiveData<List<ListItems>> getAllListItems() {
         return allListItems;
@@ -59,9 +42,22 @@ public class ListItemsViewModel extends AndroidViewModel {
         return itemRepository.getOneListItems(listId);
     }
 
+    // ========================
+    // =====    UPDATE    =====
+    // ========================
+
     public void changeStateOfItem(ItemEntity itemEntity, boolean isSelected) {
         itemRepository.changeStateOfItem(itemEntity, isSelected);
     }
+
+    public void updateListNameById(String listName, int listId) {
+        itemRepository.updateListNameById(listName, listId);
+    }
+
+
+    // ========================
+    // =====    INSERT    =====
+    // ========================
 
     public ItemEntity insertItemEntity(String itemName, boolean isSelected, int listId) {
         try {
@@ -85,9 +81,9 @@ public class ListItemsViewModel extends AndroidViewModel {
         return 0;
     }
 
-    public void updateListNameById(String listName, int listId) {
-        itemRepository.updateListNameById(listName, listId);
-    }
+    // ========================
+    // =====    DELETE    =====
+    // ========================
 
     public void deleteList(ListItems listItems) {
         itemRepository.deleteListItems(listItems);

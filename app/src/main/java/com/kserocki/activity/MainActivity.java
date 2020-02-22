@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,8 +49,7 @@ public class MainActivity extends AppCompatActivity {
         items.add(new ItemHelper("Apples", false));
         items.add(new ItemHelper("Peaches", true));
         items.add(new ItemHelper("Strawberries", false));
-
-        listItemsViewModel = ViewModelProviders.of(this).get(ListItemsViewModel.class);
+        listItemsViewModel = new ViewModelProvider(this).get(ListItemsViewModel.class);
         //listItemsViewModel.insertList(listName, false, items);
         listItemsViewModel.getAllListItems().observe(this, listItems -> listItemsAdapter.submitList(listItems));
 

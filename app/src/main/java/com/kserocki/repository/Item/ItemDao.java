@@ -70,10 +70,10 @@ public abstract class ItemDao {
     public abstract void updateListNameById(String listName, int listId);
 
     public void deleteListItems(ListItems listItems) {
-        for (ItemEntity itemEntity : listItems.itemsList) {
+        for (ItemEntity itemEntity : listItems.getItemsList()) {
             deleteItemEntity(itemEntity);
         }
-        deleteListEntity(listItems.list);
+        deleteListEntity(listItems.getList());
     }
 
     @Delete

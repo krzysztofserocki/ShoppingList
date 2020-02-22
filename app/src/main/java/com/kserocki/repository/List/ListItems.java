@@ -11,9 +11,24 @@ import java.util.List;
 public class ListItems {
 
     @Embedded
-    public ListEntity list;
+    private ListEntity list;
 
     @Relation(parentColumn = "id", entityColumn = "list_id", entity = ItemEntity.class)
-    public List<ItemEntity> itemsList;
+    private List<ItemEntity> itemsList;
 
+    public ListEntity getList() {
+        return list;
+    }
+
+    public void setList(ListEntity list) {
+        this.list = list;
+    }
+
+    public List<ItemEntity> getItemsList() {
+        return itemsList;
+    }
+
+    public void setItemsList(List<ItemEntity> itemsList) {
+        this.itemsList = itemsList;
+    }
 }

@@ -1,12 +1,10 @@
 package com.kserocki.adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -35,14 +33,14 @@ public class ListItemsAdapter extends ListAdapter<ListItems, ListItemsAdapter.Li
     private static final DiffUtil.ItemCallback<ListItems> DIFF_CALLBACK = new DiffUtil.ItemCallback<ListItems>() {
         @Override
         public boolean areItemsTheSame(@NonNull ListItems oldItem, @NonNull ListItems newItem) {
-            return oldItem.list.getId() == newItem.list.getId();
+            return oldItem.getList().getId() == newItem.getList().getId();
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull ListItems oldItem, @NonNull ListItems newItem) {
-            return oldItem.list.getCreatedAt().equals(newItem.list.getCreatedAt()) &&
-                    oldItem.list.getName().equals(newItem.list.getName()) &&
-                    oldItem.itemsList.size() == newItem.itemsList.size();
+            return oldItem.getList().getCreatedAt().equals(newItem.getList().getCreatedAt()) &&
+                    oldItem.getList().getName().equals(newItem.getList().getName()) &&
+                    oldItem.getItemsList().size() == newItem.getItemsList().size();
         }
     };
 
@@ -58,26 +56,25 @@ public class ListItemsAdapter extends ListAdapter<ListItems, ListItemsAdapter.Li
     public void onBindViewHolder(@NonNull ListHolder holder, int position) {
         ListItems listItems = getItem(position);
 
-        holder.listNameTextView.setText(listItems.list.getName() + " - [" + listItems.itemsList.size() + "]");
+        holder.listNameTextView.setText(listItems.getList().getName() + " - [" + listItems.getItemsList().size() + "]");
 
-        if (listItems.list.isArchived())
+        if (listItems.getList().isArchived())
             holder.listNameTextView.setPaintFlags(holder.listNameTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         else
             holder.listNameTextView.setPaintFlags(Paint.HINTING_OFF);
 
-        holder.deleteBtn.setOnClickListener(view -> mainActivity.deleteList(listItems));
+        holder.deleteBtn.setOnClickListener(view -> {
+            mainActivity.deleteList(listItems);
+            FancyToast.makeText(mainActivity, "Successfully deleted list!", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
+        });
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(mainActivity, ListActivity.class);
-            intent.putExtra(ListActivity.EXTRA_LIST_ID, listItems.list.getId());
-            intent.putExtra(ListActivity.EXTRA_LIST_NAME, listItems.list.getName());
+            intent.putExtra(ListActivity.EXTRA_LIST_ID, listItems.getList().getId());
+            intent.putExtra(ListActivity.EXTRA_LIST_NAME, listItems.getList().getName());
             mainActivity.startActivity(intent);
         });
 
-    }
-
-    public ListItems getListAt(int position) {
-        return getItem(position);
     }
 
     class ListHolder extends RecyclerView.ViewHolder {
