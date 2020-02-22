@@ -74,6 +74,7 @@ public class ListItemsAdapter extends ListAdapter<ListItems, ListItemsAdapter.Li
             intent.putExtra(ListActivity.EXTRA_LIST_NAME, listItems.getList().getName());
             intent.putExtra(ListActivity.EXTRA_LIST_IS_ARCHIVED, listItems.getList().isArchived());
             mainActivity.startActivity(intent);
+            mainActivity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
     }

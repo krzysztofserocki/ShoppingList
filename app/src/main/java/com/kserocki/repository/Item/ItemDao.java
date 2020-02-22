@@ -84,4 +84,5 @@ public abstract class ItemDao {
 
     @Query("UPDATE list SET is_archived = :isArchived WHERE id = :listId")
     public abstract void updateListIsArchivedById(int listId, boolean isArchived);
+
 }

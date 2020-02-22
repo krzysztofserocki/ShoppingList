@@ -2,7 +2,9 @@
     <string name="app_name">ShoppingList</string>
     <string name="successfully_deleted_list">Successfully deleted list!</string>
     <string name="empty_list_name_error">You need to enter list name...</string>
+    <string name="need_to_save_list">You need to save the list...</string>
     <string name="back">Back</string>
+    <string name="too_short_item_name">Item name is too short!</string>
     <string name="your_list_name">Your list name</string>
     <string name="enter_item_name">Enter item name</string>
     <string name="save_list_name">Save name of list!</string>

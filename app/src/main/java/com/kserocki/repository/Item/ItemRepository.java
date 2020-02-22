@@ -72,6 +72,24 @@ public class ItemRepository {
         new UpdateListIsArchivedByIdAsyncTask(listId, isArchived, itemDao).execute();
     }
 
+    public void deleteItemById(ItemEntity itemEntity) {
+        new DeleteItemByIdAsyncTask(itemDao).execute(itemEntity);
+    }
+
+    private static class DeleteItemByIdAsyncTask extends AsyncTask<ItemEntity, Void, Void> {
+        private ItemDao itemDao;
+
+        private DeleteItemByIdAsyncTask(ItemDao itemDao) {
+            this.itemDao = itemDao;
+        }
+
+        @Override
+        protected Void doInBackground(ItemEntity... itemEntities) {
+            itemDao.deleteItemEntity(itemEntities[0]);
+            return null;
+        }
+    }
+
     private static class UpdateListIsArchivedByIdAsyncTask extends AsyncTask<Void, Void, Void> {
         private ItemDao itemDao;
         private int listId;

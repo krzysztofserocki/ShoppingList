@@ -4,7 +4,9 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -19,6 +21,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class OneListAdapter extends ListAdapter<ItemEntity, OneListAdapter.ListHolder> {
+
+    private boolean isListArchived;
+
     private static final DiffUtil.ItemCallback<ItemEntity> DIFF_CALLBACK = new DiffUtil.ItemCallback<ItemEntity>() {
         @Override
         public boolean areItemsTheSame(@NonNull ItemEntity oldItem, @NonNull ItemEntity newItem) {
@@ -33,9 +38,10 @@ public class OneListAdapter extends ListAdapter<ItemEntity, OneListAdapter.ListH
     };
     private ListActivity listActivity;
 
-    public OneListAdapter(ListActivity listActivity) {
+    public OneListAdapter(ListActivity listActivity, boolean isListArchived) {
         super(DIFF_CALLBACK);
         this.listActivity = listActivity;
+        this.isListArchived = isListArchived;
     }
 
     @NonNull
@@ -63,12 +69,24 @@ public class OneListAdapter extends ListAdapter<ItemEntity, OneListAdapter.ListH
             else
                 holder.itemCheckbox.setPaintFlags(Paint.HINTING_OFF);
         });
-        holder.itemView.requestFocus();
+
+        holder.deleteItemBtn.setOnClickListener(view -> listActivity.deleteItem(itemEntity));
+
+        if (isListArchived) {
+            holder.deleteItemBtn.setEnabled(false);
+            holder.itemCheckbox.setEnabled(false);
+        } else {
+            holder.deleteItemBtn.setEnabled(true);
+            holder.itemCheckbox.setEnabled(true);
+        }
+
     }
 
     class ListHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.item_checkbox)
         CheckBox itemCheckbox;
+        @BindView(R.id.delete_item_btn)
+        ImageButton deleteItemBtn;
 
         ListHolder(@NonNull View view) {
             super(view);
@@ -76,4 +94,8 @@ public class OneListAdapter extends ListAdapter<ItemEntity, OneListAdapter.ListH
         }
     }
 
+    public void setListArchived(boolean listArchived) {
+        isListArchived = listArchived;
+        notifyDataSetChanged();
+    }
 }

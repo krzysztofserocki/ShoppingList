@@ -3,12 +3,15 @@ package com.kserocki.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kserocki.R;
 import com.kserocki.adapter.ListItemsAdapter;
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
+    @BindView(R.id.main_title_txt)
+    TextView mainTitleTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         //listItemsViewModel.insertList(listName, false, items);
 
 
-
         listItemsViewModel = new ViewModelProvider(this).get(ListItemsViewModel.class);
         //listItemsViewModel.getAllListItems().observe(this, listItems -> listItemsAdapter.submitList(listItems));
 
@@ -55,13 +59,18 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.menu_current:
                     listItemsViewModel.getArchivedListItems(false).observe(MainActivity.this, listItems -> listItemsAdapter.submitList(listItems));
+                    mainTitleTxt.setText(getString(R.string.app_name) + " - " + getString(R.string.current));
                     break;
                 case R.id.menu_archived:
                     listItemsViewModel.getArchivedListItems(true).observe(MainActivity.this, listItems -> listItemsAdapter.submitList(listItems));
+                    mainTitleTxt.setText(getString(R.string.app_name) + " - " + getString(R.string.archived));
                     break;
             }
             return false;
         });
+
+        bottomNavigationView.setSelectedItemId(R.id.menu_current);
+        mainTitleTxt.setText(getString(R.string.app_name) + " - " + getString(R.string.current));
     }
 
     @OnClick({R.id.add_new_list_btn})
@@ -69,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.add_new_list_btn:
                 startActivity(new Intent(this, ListActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
         }
     }

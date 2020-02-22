@@ -92,4 +92,8 @@ public class ListItemsViewModel extends AndroidViewModel {
     public void deleteList(ListItems listItems) {
         itemRepository.deleteListItems(listItems);
     }
+
+    public void deleteItemById(ItemEntity itemEntity) {
+        itemRepository.deleteItemById(itemEntity);
+    }
 }
