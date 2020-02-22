@@ -98,10 +98,13 @@ public class ListActivity extends AppCompatActivity {
                 break;
             case R.id.save_list_btn:
                 String listName = listNameTxt.getText().toString().trim();
-                if (listName.length() > 0)
+                if (listName.length() > 0) {
+                    hideKeyboard();
                     listItemsViewModel.updateListNameById(listName, listId);
-                else
+                    FancyToast.makeText(this, getString(R.string.successfully_changed_name_of_list), FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
+                } else {
                     FancyToast.makeText(this, getString(R.string.empty_list_name_error), FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+                }
                 break;
         }
     }

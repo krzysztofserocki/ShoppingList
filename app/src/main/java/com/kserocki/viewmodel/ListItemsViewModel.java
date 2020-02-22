@@ -1,16 +1,14 @@
 package com.kserocki.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.kserocki.model.ItemHelper;
 import com.kserocki.repository.Item.ItemEntity;
 import com.kserocki.repository.Item.ItemRepository;
-import com.kserocki.repository.List.ListEntity;
 import com.kserocki.repository.List.ListItems;
 
 import java.util.List;
@@ -19,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 public class ListItemsViewModel extends AndroidViewModel {
     private ItemRepository itemRepository;
     private LiveData<List<ListItems>> allListItems;
+
 
     public ListItemsViewModel(@NonNull Application application) {
         super(application);
@@ -77,9 +76,7 @@ public class ListItemsViewModel extends AndroidViewModel {
     public int insertNewList() {
         try {
             return itemRepository.insertNewList();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         return 0;
@@ -96,4 +93,5 @@ public class ListItemsViewModel extends AndroidViewModel {
     public void deleteItemById(ItemEntity itemEntity) {
         itemRepository.deleteItemById(itemEntity);
     }
+
 }

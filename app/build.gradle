@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.kserocki"
@@ -21,6 +21,9 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+    useLibrary 'android.test.runner'
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
 }
 
 dependencies {
@@ -72,6 +75,11 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:$lombok_version"
 
     testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'org.mockito:mockito-core:2.25.1'
+    testImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "com.android.support.test:runner:1.0.2"
+    testImplementation "com.android.support.test:rules:1.0.2"
+    testImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
 }

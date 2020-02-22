@@ -150,7 +150,7 @@ public class ItemRepository {
         @Override
         protected Long doInBackground(Void... voids) {
             ListEntity listEntity = new ListEntity("list_" + getRandomNumberInRange(1000, 9999), false, getCurrentDate());
-            return itemDao.insert(listEntity);
+            return itemDao.insertListEntity(listEntity);
         }
     }
 
@@ -176,7 +176,7 @@ public class ItemRepository {
             ItemEntity itemEntity = new ItemEntity(itemName, isSelected);
 
             itemEntity.setListId(listId);
-            long itemId = itemDao.insertItemEntity(itemEntity);
+            Long itemId = itemDao.insertItemEntity(itemEntity);
             itemEntity.setId(itemId);
 
             return itemEntity;

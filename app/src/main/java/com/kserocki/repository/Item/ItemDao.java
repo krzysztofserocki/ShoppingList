@@ -27,11 +27,11 @@ public abstract class ItemDao {
 
     @Transaction
     public void insertListItems(ListEntity listEntity, List<ItemEntity> itemEntities) {
-        final long companyId = insert(listEntity);
+        final long companyId = insertListEntity(listEntity);
 
         for (ItemEntity itemEntity : itemEntities) {
             itemEntity.setListId(companyId);
-            insert(itemEntity);
+            insertItemEntity(itemEntity);
         }
     }
 
@@ -40,21 +40,16 @@ public abstract class ItemDao {
         deleteAllItemsByListId(listId);
         for (ItemEntity itemEntity : itemEntities) {
             itemEntity.setListId(listId);
-            insert(itemEntity);
+            insertItemEntity(itemEntity);
         }
     }
-
-    @Update
-    public abstract void updateItemEntity(ItemEntity itemEntity);
 
     @Query("DELETE FROM item_list WHERE list_id = :listId")
     public abstract void deleteAllItemsByListId(long listId);
 
     @Insert(onConflict = REPLACE)
-    public abstract long insert(ListEntity list);
+    public abstract Long insertListEntity(ListEntity list);
 
-    @Insert
-    public abstract void insert(ItemEntity itemEntity);
 
     @Transaction
     @Query("SELECT * FROM list WHERE list.is_archived = :isArchived ORDER BY created_at DESC")
@@ -64,7 +59,7 @@ public abstract class ItemDao {
     public abstract void changeStateOfItem(long itemEntityId, boolean isSelected);
 
     @Insert
-    public abstract long insertItemEntity(ItemEntity itemEntity);
+    public abstract Long insertItemEntity(ItemEntity itemEntity);
 
     @Query("UPDATE list SET name = :listName WHERE id = :listId")
     public abstract void updateListNameById(String listName, int listId);
@@ -85,4 +80,9 @@ public abstract class ItemDao {
     @Query("UPDATE list SET is_archived = :isArchived WHERE id = :listId")
     public abstract void updateListIsArchivedById(int listId, boolean isArchived);
 
+    @Query("SELECT * FROM item_list WHERE id = :itemId")
+    public abstract LiveData<ItemEntity> getOneItemEntity(Long itemId);
+
+    @Query("SELECT * FROM item_list")
+    public abstract LiveData<List<ItemEntity>> getAllItemEntities();
 }

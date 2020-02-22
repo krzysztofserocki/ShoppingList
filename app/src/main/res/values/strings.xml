@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ShoppingList</string>
     <string name="successfully_deleted_list">Successfully deleted list!</string>
+    <string name="successfully_changed_name_of_list">Successfully changed name of the list!</string>
     <string name="empty_list_name_error">You need to enter list name...</string>
     <string name="need_to_save_list">You need to save the list...</string>
     <string name="back">Back</string>
