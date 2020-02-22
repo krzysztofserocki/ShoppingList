@@ -49,13 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         listItemsViewModel = new ViewModelProvider(this).get(ListItemsViewModel.class);
-        listItemsViewModel.getAllListItems().observe(this, listItems -> listItemsAdapter.submitList(listItems));
+        //listItemsViewModel.getAllListItems().observe(this, listItems -> listItemsAdapter.submitList(listItems));
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.menu_all:
-                    listItemsViewModel.getAllListItems().observe(MainActivity.this, listItems -> listItemsAdapter.submitList(listItems));
-                    break;
                 case R.id.menu_current:
                     listItemsViewModel.getArchivedListItems(false).observe(MainActivity.this, listItems -> listItemsAdapter.submitList(listItems));
                     break;

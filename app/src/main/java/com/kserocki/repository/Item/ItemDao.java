@@ -19,7 +19,7 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 public abstract class ItemDao {
 
     @Query("SELECT * FROM item_list WHERE list_id = :listId")
-    public abstract LiveData<List<ItemEntity>> selectItemEntityByListId(int listId);
+    public abstract LiveData<List<ItemEntity>> getOneListItems(int listId);
 
     @Transaction
     @Query("SELECT * FROM list ORDER BY created_at DESC")
@@ -81,4 +81,7 @@ public abstract class ItemDao {
 
     @Delete
     public abstract void deleteItemEntity(ItemEntity itemEntity);
+
+    @Query("UPDATE list SET is_archived = :isArchived WHERE id = :listId")
+    public abstract void updateListIsArchivedById(int listId, boolean isArchived);
 }

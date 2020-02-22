@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.kserocki.R;
 import com.kserocki.adapter.OneListAdapter;
 import com.kserocki.repository.Item.ItemEntity;
@@ -34,6 +37,8 @@ public class ListActivity extends AppCompatActivity {
     EditText listNameTxt;
     @BindView(R.id.item_name_txt)
     EditText itemNameTxt;
+    @BindView(R.id.is_archived_switch)
+    SwitchMaterial isArchivedSwitch;
     @BindView(R.id.one_list_recycler)
     RecyclerView recyclerView;
     int listId = 0;
@@ -54,6 +59,13 @@ public class ListActivity extends AppCompatActivity {
         listId = getIntent().hasExtra(EXTRA_LIST_ID) ? getIntent().getIntExtra(EXTRA_LIST_ID, 0) : listItemsViewModel.insertNewList();
         if (getIntent().hasExtra(EXTRA_LIST_NAME))
             listNameTxt.setText(getIntent().getStringExtra(EXTRA_LIST_NAME));
+
+        if (getIntent().hasExtra(EXTRA_LIST_IS_ARCHIVED))
+            isArchivedSwitch.setChecked(getIntent().getBooleanExtra(EXTRA_LIST_IS_ARCHIVED, false));
+
+        isArchivedSwitch.setOnCheckedChangeListener((compoundButton, isArchived) -> {
+            listItemsViewModel.updateListIsArchivedById(listId, isArchived);
+        });
 
         listItemsViewModel.getOneListItems(listId).observe(this, listItems -> oneListAdapter.submitList(listItems));
     }
@@ -96,6 +108,7 @@ public class ListActivity extends AppCompatActivity {
 
 
     public static final String EXTRA_LIST_ID = "EXTRA_LIST_ID";
+    public static final String EXTRA_LIST_IS_ARCHIVED = "EXTRA_LIST_IS_ARCHIVED";
     public static final String EXTRA_LIST_NAME = "EXTRA_LIST_NAME";
 
     public void changeStateOfItem(ItemEntity itemEntity, boolean isSelected) {

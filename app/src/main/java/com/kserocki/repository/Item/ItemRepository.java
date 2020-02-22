@@ -49,7 +49,7 @@ public class ItemRepository {
     }
 
     public LiveData<List<ItemEntity>> getOneListItems(int listId) {
-        return itemDao.selectItemEntityByListId(listId);
+        return itemDao.getOneListItems(listId);
     }
 
     public ItemEntity insertItemEntity(String itemName, boolean isSelected, long listId) throws ExecutionException, InterruptedException {
@@ -66,6 +66,28 @@ public class ItemRepository {
 
     public void deleteListItems(ListItems listItems) {
         new DeleteListItemsAsyncTask(itemDao).execute(listItems);
+    }
+
+    public void updateListIsArchivedById(int listId, boolean isArchived) {
+        new UpdateListIsArchivedByIdAsyncTask(listId, isArchived, itemDao).execute();
+    }
+
+    private static class UpdateListIsArchivedByIdAsyncTask extends AsyncTask<Void, Void, Void> {
+        private ItemDao itemDao;
+        private int listId;
+        private boolean isArchived;
+
+        private UpdateListIsArchivedByIdAsyncTask(int listId, boolean isArchived, ItemDao itemDao) {
+            this.itemDao = itemDao;
+            this.listId = listId;
+            this.isArchived = isArchived;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            itemDao.updateListIsArchivedById(listId, isArchived);
+            return null;
+        }
     }
 
     private static class DeleteListItemsAsyncTask extends AsyncTask<ListItems, Void, Void> {

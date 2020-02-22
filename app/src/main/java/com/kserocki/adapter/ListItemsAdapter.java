@@ -72,6 +72,7 @@ public class ListItemsAdapter extends ListAdapter<ListItems, ListItemsAdapter.Li
             Intent intent = new Intent(mainActivity, ListActivity.class);
             intent.putExtra(ListActivity.EXTRA_LIST_ID, listItems.getList().getId());
             intent.putExtra(ListActivity.EXTRA_LIST_NAME, listItems.getList().getName());
+            intent.putExtra(ListActivity.EXTRA_LIST_IS_ARCHIVED, listItems.getList().isArchived());
             mainActivity.startActivity(intent);
         });
 

@@ -54,6 +54,10 @@ public class ListItemsViewModel extends AndroidViewModel {
         itemRepository.updateListNameById(listName, listId);
     }
 
+    public void updateListIsArchivedById(int listId, boolean isArchived) {
+        itemRepository.updateListIsArchivedById(listId, isArchived);
+    }
+
 
     // ========================
     // =====    INSERT    =====
