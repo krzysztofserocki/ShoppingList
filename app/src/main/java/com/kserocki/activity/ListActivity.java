@@ -54,7 +54,7 @@ public class ListActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        oneListAdapter = new OneListAdapter(this, isListArchived);
+        //oneListAdapter = new OneListAdapter(this, isListArchived);
         recyclerView.setAdapter(oneListAdapter);
 
         listItemsViewModel = new ListItemsViewModel(getApplication());

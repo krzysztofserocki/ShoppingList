@@ -4,7 +4,6 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 
@@ -13,8 +12,10 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.kserocki.R;
 import com.kserocki.activity.ListActivity;
+import com.kserocki.activity.ListKtActivity;
 import com.kserocki.repository.Item.ItemEntity;
 
 import butterknife.BindView;
@@ -36,9 +37,9 @@ public class OneListAdapter extends ListAdapter<ItemEntity, OneListAdapter.ListH
                     oldItem.getListId() == newItem.getListId();
         }
     };
-    private ListActivity listActivity;
+    private ListKtActivity listActivity;
 
-    public OneListAdapter(ListActivity listActivity, boolean isListArchived) {
+    public OneListAdapter(ListKtActivity listActivity, boolean isListArchived) {
         super(DIFF_CALLBACK);
         this.listActivity = listActivity;
         this.isListArchived = isListArchived;
@@ -71,6 +72,8 @@ public class OneListAdapter extends ListAdapter<ItemEntity, OneListAdapter.ListH
         });
 
         holder.deleteItemBtn.setOnClickListener(view -> listActivity.deleteItem(itemEntity));
+        Glide.with(listActivity).load(R.drawable.delete_24dp).into(holder.deleteItemBtn);
+
 
         if (isListArchived) {
             holder.deleteItemBtn.setEnabled(false);

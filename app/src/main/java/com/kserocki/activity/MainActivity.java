@@ -3,7 +3,6 @@ package com.kserocki.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kserocki.R;
 import com.kserocki.adapter.ListItemsAdapter;
@@ -44,16 +42,7 @@ public class MainActivity extends AppCompatActivity {
         listItemsAdapter = new ListItemsAdapter(this);
         recyclerView.setAdapter(listItemsAdapter);
 
-//        String listName = "Grocery shop";
-//        List<ItemHelper> items = new ArrayList<>();
-//        items.add(new ItemHelper("Apples", false));
-//        items.add(new ItemHelper("Peaches", true));
-//        items.add(new ItemHelper("Strawberries", false));
-        //listItemsViewModel.insertList(listName, false, items);
-
-
         listItemsViewModel = new ViewModelProvider(this).get(ListItemsViewModel.class);
-        //listItemsViewModel.getAllListItems().observe(this, listItems -> listItemsAdapter.submitList(listItems));
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -77,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.add_new_list_btn:
-                startActivity(new Intent(this, ListActivity.class));
+                startActivity(new Intent(this, ListKtActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
         }

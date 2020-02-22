@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kserocki.R;
 import com.kserocki.activity.ListActivity;
+import com.kserocki.activity.ListKtActivity;
 import com.kserocki.activity.MainActivity;
 import com.kserocki.repository.List.ListItems;
 import com.shashank.sony.fancytoastlib.FancyToast;
@@ -69,7 +70,7 @@ public class ListItemsAdapter extends ListAdapter<ListItems, ListItemsAdapter.Li
         });
 
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(mainActivity, ListActivity.class);
+            Intent intent = new Intent(mainActivity, ListKtActivity.class);
             intent.putExtra(ListActivity.EXTRA_LIST_ID, listItems.getList().getId());
             intent.putExtra(ListActivity.EXTRA_LIST_NAME, listItems.getList().getName());
             intent.putExtra(ListActivity.EXTRA_LIST_IS_ARCHIVED, listItems.getList().isArchived());
