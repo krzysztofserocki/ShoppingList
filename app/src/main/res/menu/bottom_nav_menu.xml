@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/menu_all"
-        android:icon="@drawable/all_lists_icon_foreground"
-        android:title="All" />
-    <item
-        android:id="@+id/menu_planned"
+        android:id="@+id/menu_current"
         android:icon="@drawable/planned_lists_icon_foreground"
-        android:title="Planned" />
+        android:title="@string/current" />
     <item
         android:id="@+id/menu_archived"
-        android:icon="@drawable/archived_lists_icon_foreground"
-        android:title="Archieved" />
+        android:icon="@drawable/archive_24dp"
+        android:title="@string/archived" />
 </menu>

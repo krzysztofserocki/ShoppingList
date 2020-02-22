@@ -79,7 +79,7 @@ public class ListActivity extends AppCompatActivity {
                 if (listName.length() > 0)
                     listItemsViewModel.updateListNameById(listName, listId);
                 else
-                    FancyToast.makeText(this, "You need to enter list name...", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+                    FancyToast.makeText(this, getString(R.string.empty_list_name_error), FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
                 break;
         }
     }

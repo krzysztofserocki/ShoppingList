@@ -4,6 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <ImageButton
+        android:id="@+id/delete_item_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/delete_24dp" />
+
     <CheckBox
         android:id="@+id/item_checkbox"
         android:layout_width="wrap_content"

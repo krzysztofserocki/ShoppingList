@@ -40,16 +40,6 @@ public class ItemRepository {
         return INSTANCE;
     }
 
-    @SuppressWarnings("unchecked")
-    public void insert(String listName, boolean isArchived, List<ItemHelper> items) {
-        new InsertListItemsAsyncTask(listName, isArchived, itemDao).execute(items);
-    }
-
-    @SuppressWarnings("unchecked")
-    public void updateListItems(long listId, List<ItemEntity> itemEntities) {
-        new UpdateListItemsAsyncTask(listId, itemDao).execute(itemEntities);
-    }
-
     public LiveData<List<ListItems>> getAllListItemsOrderedByDate() {
         return allListItems;
     }
@@ -210,20 +200,6 @@ public class ItemRepository {
             ItemEntity itemEntity = items[0];
 
             itemDao.changeStateOfItem(itemEntity.getId(), isSelected);
-            return null;
-        }
-    }
-
-    private static class UpdateItemAsyncTask extends AsyncTask<ItemEntity, Void, Void> {
-        private ItemDao itemDao;
-
-        private UpdateItemAsyncTask(ItemDao itemDao) {
-            this.itemDao = itemDao;
-        }
-
-        @Override
-        protected Void doInBackground(ItemEntity... entities) {
-            itemDao.updateItemEntity(entities[0]);
             return null;
         }
     }

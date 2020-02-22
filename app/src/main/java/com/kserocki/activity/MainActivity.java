@@ -6,19 +6,14 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kserocki.R;
 import com.kserocki.adapter.ListItemsAdapter;
-import com.kserocki.model.ItemHelper;
 import com.kserocki.repository.List.ListItems;
 import com.kserocki.viewmodel.ListItemsViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,13 +39,16 @@ public class MainActivity extends AppCompatActivity {
         listItemsAdapter = new ListItemsAdapter(this);
         recyclerView.setAdapter(listItemsAdapter);
 
-        String listName = "Grocery shop";
-        List<ItemHelper> items = new ArrayList<>();
-        items.add(new ItemHelper("Apples", false));
-        items.add(new ItemHelper("Peaches", true));
-        items.add(new ItemHelper("Strawberries", false));
-        listItemsViewModel = new ViewModelProvider(this).get(ListItemsViewModel.class);
+//        String listName = "Grocery shop";
+//        List<ItemHelper> items = new ArrayList<>();
+//        items.add(new ItemHelper("Apples", false));
+//        items.add(new ItemHelper("Peaches", true));
+//        items.add(new ItemHelper("Strawberries", false));
         //listItemsViewModel.insertList(listName, false, items);
+
+
+
+        listItemsViewModel = new ViewModelProvider(this).get(ListItemsViewModel.class);
         listItemsViewModel.getAllListItems().observe(this, listItems -> listItemsAdapter.submitList(listItems));
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.menu_all:
                     listItemsViewModel.getAllListItems().observe(MainActivity.this, listItems -> listItemsAdapter.submitList(listItems));
                     break;
-                case R.id.menu_planned:
+                case R.id.menu_current:
                     listItemsViewModel.getArchivedListItems(false).observe(MainActivity.this, listItems -> listItemsAdapter.submitList(listItems));
                     break;
                 case R.id.menu_archived:
@@ -76,10 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ListActivity.class));
                 break;
         }
-    }
-
-    public void changeStateOfListItems() {
-
     }
 
     public void deleteList(ListItems listItems) {

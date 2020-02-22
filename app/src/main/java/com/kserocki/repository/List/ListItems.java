@@ -4,7 +4,6 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import com.kserocki.repository.Item.ItemEntity;
-import com.kserocki.repository.List.ListEntity;
 
 import java.util.List;
 

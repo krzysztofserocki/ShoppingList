@@ -26,7 +26,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/nineteenth"
-        android:text="Name of the list"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineV05"
         app:layout_constraintTop_toTopOf="parent" />

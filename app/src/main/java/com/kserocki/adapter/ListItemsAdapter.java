@@ -65,7 +65,7 @@ public class ListItemsAdapter extends ListAdapter<ListItems, ListItemsAdapter.Li
 
         holder.deleteBtn.setOnClickListener(view -> {
             mainActivity.deleteList(listItems);
-            FancyToast.makeText(mainActivity, "Successfully deleted list!", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
+            FancyToast.makeText(mainActivity, mainActivity.getString(R.string.successfully_deleted_list), FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
         });
 
         holder.itemView.setOnClickListener(view -> {

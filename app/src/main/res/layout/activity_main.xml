@@ -17,7 +17,7 @@
         android:background="@color/purple"
         android:fontFamily="@font/nineteenth"
         android:gravity="center"
-        android:text="Add new list"
+        android:text="@string/add_new_list"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="20sp"
         app:cornerRadius="15dp"

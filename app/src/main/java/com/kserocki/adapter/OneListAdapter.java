@@ -1,9 +1,6 @@
 package com.kserocki.adapter;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,22 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kserocki.R;
 import com.kserocki.activity.ListActivity;
 import com.kserocki.repository.Item.ItemEntity;
-import com.shashank.sony.fancytoastlib.FancyToast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class OneListAdapter extends ListAdapter<ItemEntity, OneListAdapter.ListHolder> {
-    private ListActivity listActivity;
-
-    public OneListAdapter(ListActivity listActivity) {
-        super(DIFF_CALLBACK);
-        this.listActivity = listActivity;
-    }
-
     private static final DiffUtil.ItemCallback<ItemEntity> DIFF_CALLBACK = new DiffUtil.ItemCallback<ItemEntity>() {
         @Override
         public boolean areItemsTheSame(@NonNull ItemEntity oldItem, @NonNull ItemEntity newItem) {
@@ -45,7 +31,12 @@ public class OneListAdapter extends ListAdapter<ItemEntity, OneListAdapter.ListH
                     oldItem.getListId() == newItem.getListId();
         }
     };
+    private ListActivity listActivity;
 
+    public OneListAdapter(ListActivity listActivity) {
+        super(DIFF_CALLBACK);
+        this.listActivity = listActivity;
+    }
 
     @NonNull
     @Override
