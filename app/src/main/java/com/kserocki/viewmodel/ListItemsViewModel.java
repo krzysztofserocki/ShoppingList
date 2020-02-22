@@ -1,7 +1,6 @@
 package com.kserocki.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -16,22 +15,16 @@ import java.util.concurrent.ExecutionException;
 
 public class ListItemsViewModel extends AndroidViewModel {
     private ItemRepository itemRepository;
-    private LiveData<List<ListItems>> allListItems;
 
 
     public ListItemsViewModel(@NonNull Application application) {
         super(application);
         itemRepository = ItemRepository.getInstance(application);
-        allListItems = itemRepository.getAllListItemsOrderedByDate();
     }
 
     // ========================
     // =====    GETTERS   =====
     // ========================
-
-    public LiveData<List<ListItems>> getAllListItems() {
-        return allListItems;
-    }
 
     public LiveData<List<ListItems>> getArchivedListItems(boolean isArchived) {
         return itemRepository.getListByIsArchived(isArchived);
@@ -65,9 +58,7 @@ public class ListItemsViewModel extends AndroidViewModel {
     public ItemEntity insertItemEntity(String itemName, boolean isSelected, int listId) {
         try {
             return itemRepository.insertItemEntity(itemName, isSelected, listId);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         return null;

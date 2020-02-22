@@ -1,5 +1,6 @@
 package com.kserocki.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,8 +23,6 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListItemsViewModel listItemsViewModel;
-    private ListItemsAdapter listItemsAdapter;
     @BindView(R.id.lists_recycler)
     RecyclerView recyclerView;
     @BindView(R.id.bottom_navigation)
@@ -31,19 +30,24 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_title_txt)
     TextView mainTitleTxt;
 
+    private ListItemsViewModel listItemsViewModel;
+    private ListItemsAdapter listItemsAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        listItemsAdapter = new ListItemsAdapter(this);
-        recyclerView.setAdapter(listItemsAdapter);
+        setRecyclerView();
 
         listItemsViewModel = new ViewModelProvider(this).get(ListItemsViewModel.class);
 
+        setBottomNav();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setBottomNav() {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.menu_current:
@@ -60,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView.setSelectedItemId(R.id.menu_current);
         mainTitleTxt.setText(getString(R.string.app_name) + " - " + getString(R.string.current));
+    }
+
+    private void setRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        listItemsAdapter = new ListItemsAdapter(this);
+        recyclerView.setAdapter(listItemsAdapter);
     }
 
     @OnClick({R.id.add_new_list_btn})

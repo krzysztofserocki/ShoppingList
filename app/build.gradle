@@ -72,12 +72,14 @@ dependencies {
     compileOnly "org.projectlombok:lombok:$lombok_version"
     annotationProcessor "org.projectlombok:lombok:$lombok_version"
 
-    testImplementation 'junit:junit:4.13'
-    testImplementation 'org.mockito:mockito-core:2.25.1'
-    testImplementation 'androidx.test.ext:junit:1.1.1'
-    testImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    testImplementation "com.android.support.test:runner:1.0.2"
-    testImplementation "com.android.support.test:rules:1.0.2"
-    testImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation 'junit:junit:4.13'
+    androidTestImplementation 'org.mockito:mockito-core:2.25.1'
+    androidTestImplementation "org.mockito:mockito-android:2.25.0"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation "com.android.support.test:runner:1.0.2"
+    androidTestImplementation "com.android.support.test:rules:1.0.2"
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation 'junit:junit:4.13'
 }

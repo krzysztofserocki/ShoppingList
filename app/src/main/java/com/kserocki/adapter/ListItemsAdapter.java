@@ -24,13 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ListItemsAdapter extends ListAdapter<ListItems, ListItemsAdapter.ListHolder> {
-    private MainActivity mainActivity;
-
-    public ListItemsAdapter(MainActivity mainActivity) {
-        super(DIFF_CALLBACK);
-        this.mainActivity = mainActivity;
-    }
-
     private static final DiffUtil.ItemCallback<ListItems> DIFF_CALLBACK = new DiffUtil.ItemCallback<ListItems>() {
         @Override
         public boolean areItemsTheSame(@NonNull ListItems oldItem, @NonNull ListItems newItem) {
@@ -44,7 +37,12 @@ public class ListItemsAdapter extends ListAdapter<ListItems, ListItemsAdapter.Li
                     oldItem.getItemsList().size() == newItem.getItemsList().size();
         }
     };
+    private MainActivity mainActivity;
 
+    public ListItemsAdapter(MainActivity mainActivity) {
+        super(DIFF_CALLBACK);
+        this.mainActivity = mainActivity;
+    }
 
     @NonNull
     @Override
@@ -71,7 +69,7 @@ public class ListItemsAdapter extends ListAdapter<ListItems, ListItemsAdapter.Li
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(mainActivity, ListKtActivity.class);
-            intent.putExtra(ListActivity.EXTRA_LIST_ID, listItems.getList().getId());
+            intent.putExtra(ListActivity.EXTRA_LIST_ID, (int) listItems.getList().getId());
             intent.putExtra(ListActivity.EXTRA_LIST_NAME, listItems.getList().getName());
             intent.putExtra(ListActivity.EXTRA_LIST_IS_ARCHIVED, listItems.getList().isArchived());
             mainActivity.startActivity(intent);

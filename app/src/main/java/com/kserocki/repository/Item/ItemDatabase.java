@@ -12,14 +12,12 @@ import com.kserocki.repository.List.ListEntity;
 public abstract class ItemDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "Items.db";
-
-    private static volatile ItemDatabase INSTANCE;
-
     private static final Object sLock = new Object();
+    private static volatile ItemDatabase INSTANCE;
 
     public static ItemDatabase getInstance(Context context) {
         if (INSTANCE == null) {
-            synchronized(sLock) {
+            synchronized (sLock) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             ItemDatabase.class, DB_NAME)

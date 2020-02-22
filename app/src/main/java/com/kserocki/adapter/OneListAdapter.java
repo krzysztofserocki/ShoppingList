@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.kserocki.R;
-import com.kserocki.activity.ListActivity;
 import com.kserocki.activity.ListKtActivity;
 import com.kserocki.repository.Item.ItemEntity;
 
@@ -22,8 +21,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class OneListAdapter extends ListAdapter<ItemEntity, OneListAdapter.ListHolder> {
-
-    private boolean isListArchived;
 
     private static final DiffUtil.ItemCallback<ItemEntity> DIFF_CALLBACK = new DiffUtil.ItemCallback<ItemEntity>() {
         @Override
@@ -37,6 +34,7 @@ public class OneListAdapter extends ListAdapter<ItemEntity, OneListAdapter.ListH
                     oldItem.getListId() == newItem.getListId();
         }
     };
+    private boolean isListArchived;
     private ListKtActivity listActivity;
 
     public OneListAdapter(ListKtActivity listActivity, boolean isListArchived) {
@@ -85,6 +83,11 @@ public class OneListAdapter extends ListAdapter<ItemEntity, OneListAdapter.ListH
 
     }
 
+    public void setListArchived(boolean listArchived) {
+        isListArchived = listArchived;
+        notifyDataSetChanged();
+    }
+
     class ListHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.item_checkbox)
         CheckBox itemCheckbox;
@@ -95,10 +98,5 @@ public class OneListAdapter extends ListAdapter<ItemEntity, OneListAdapter.ListH
             super(view);
             ButterKnife.bind(this, view);
         }
-    }
-
-    public void setListArchived(boolean listArchived) {
-        isListArchived = listArchived;
-        notifyDataSetChanged();
     }
 }

@@ -6,13 +6,11 @@ import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
-import com.kserocki.model.ItemHelper;
 import com.kserocki.repository.List.ListEntity;
 import com.kserocki.repository.List.ListItems;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -40,9 +38,26 @@ public class ItemRepository {
         return INSTANCE;
     }
 
+    // ========================
+    // =====    GETTERS   =====
+    // ========================
+
+    private static String getCurrentDate() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(new Date());
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+        return new Random().nextInt((max - min) + 1) + min;
+    }
+
     public LiveData<List<ListItems>> getAllListItemsOrderedByDate() {
         return allListItems;
     }
+
+    // ========================
+    // =====    UPDATE    =====
+    // ========================
 
     public LiveData<List<ListItems>> getListByIsArchived(boolean isArchived) {
         return itemDao.getListByIsArchived(isArchived);
@@ -52,6 +67,22 @@ public class ItemRepository {
         return itemDao.getOneListItems(listId);
     }
 
+    // ========================
+    // =====    INSERT    =====
+    // ========================
+
+    public void updateListNameById(String listName, int listId) {
+        new UpdateListNameByIdAsyncTask(listName, listId, itemDao).execute();
+    }
+
+    public void updateListIsArchivedById(int listId, boolean isArchived) {
+        new UpdateListIsArchivedByIdAsyncTask(listId, isArchived, itemDao).execute();
+    }
+
+    // ========================
+    // =====    DELETE    =====
+    // ========================
+
     public ItemEntity insertItemEntity(String itemName, boolean isSelected, long listId) throws ExecutionException, InterruptedException {
         return new InsertItemEntityAsyncTask(itemName, isSelected, listId, itemDao).execute().get();
     }
@@ -60,20 +91,20 @@ public class ItemRepository {
         return new InsertNewListAsyncTask(itemDao).execute().get().intValue();
     }
 
-    public void updateListNameById(String listName, int listId) {
-        new UpdateListNameByIdAsyncTask(listName, listId, itemDao).execute();
-    }
+    // ========================
+    // ===== ASYNC  TASKS =====
+    // ========================
 
     public void deleteListItems(ListItems listItems) {
         new DeleteListItemsAsyncTask(itemDao).execute(listItems);
     }
 
-    public void updateListIsArchivedById(int listId, boolean isArchived) {
-        new UpdateListIsArchivedByIdAsyncTask(listId, isArchived, itemDao).execute();
-    }
-
     public void deleteItemById(ItemEntity itemEntity) {
         new DeleteItemByIdAsyncTask(itemDao).execute(itemEntity);
+    }
+
+    public void changeStateOfItem(ItemEntity itemEntity, boolean isSelected) {
+        new ChangeStateOfItemAsyncTask(isSelected, itemDao).execute(itemEntity);
     }
 
     private static class DeleteItemByIdAsyncTask extends AsyncTask<ItemEntity, Void, Void> {
@@ -154,10 +185,6 @@ public class ItemRepository {
         }
     }
 
-    private static int getRandomNumberInRange(int min, int max) {
-        return new Random().nextInt((max - min) + 1) + min;
-    }
-
     private static class InsertItemEntityAsyncTask extends AsyncTask<Void, Void, ItemEntity> {
         private ItemDao itemDao;
         private String itemName;
@@ -183,49 +210,6 @@ public class ItemRepository {
         }
     }
 
-    private static class UpdateListItemsAsyncTask extends AsyncTask<List<ItemEntity>, Void, Void> {
-        private ItemDao itemDao;
-        private long listId;
-
-        private UpdateListItemsAsyncTask(long listId, ItemDao itemDao) {
-            this.listId = listId;
-            this.itemDao = itemDao;
-        }
-
-        @Override
-        protected Void doInBackground(List<ItemEntity>... itemEntities) {
-            List<ItemEntity> itemEntity = itemEntities[0];
-            itemDao.updateListItems(listId, itemEntity);
-            return null;
-        }
-    }
-
-    private static class InsertListItemsAsyncTask extends AsyncTask<List<ItemHelper>, Void, Void> {
-        private ItemDao itemDao;
-        private String listName;
-        private boolean isArchived;
-
-        private InsertListItemsAsyncTask(String listName, boolean isArchived, ItemDao itemDao) {
-            this.itemDao = itemDao;
-            this.isArchived = isArchived;
-            this.listName = listName;
-        }
-
-        @Override
-        protected Void doInBackground(List<ItemHelper>... items) {
-            List<ItemEntity> itemEntities = new ArrayList<>();
-            for (ItemHelper item : items[0])
-                itemEntities.add(new ItemEntity(item.getName(), item.isSelected()));
-
-            itemDao.insertListItems(new ListEntity(listName, isArchived, getCurrentDate()), itemEntities);
-            return null;
-        }
-    }
-
-    public void changeStateOfItem(ItemEntity itemEntity, boolean isSelected) {
-        new ChangeStateOfItemAsyncTask(isSelected, itemDao).execute(itemEntity);
-    }
-
     private static class ChangeStateOfItemAsyncTask extends AsyncTask<ItemEntity, Void, Void> {
         private ItemDao itemDao;
         private boolean isSelected;
@@ -242,11 +226,6 @@ public class ItemRepository {
             itemDao.changeStateOfItem(itemEntity.getId(), isSelected);
             return null;
         }
-    }
-
-    private static String getCurrentDate() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return dateFormat.format(new Date());
     }
 
 }

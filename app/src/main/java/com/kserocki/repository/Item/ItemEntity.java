@@ -19,35 +19,35 @@ import static androidx.room.ForeignKey.CASCADE;
                 onDelete = CASCADE),
         indices = @Index("list_id"))
 public class ItemEntity {
+    @NonNull
+    @ColumnInfo(name = "name")
+    private final String name;
     @PrimaryKey(autoGenerate = true)
     public long id;
     @ColumnInfo(name = "list_id")
     private long listId;
     @ColumnInfo(name = "is_selected")
     private boolean isSelected;
-    @NonNull
-    @ColumnInfo(name = "name")
-    private final String name;
 
     public ItemEntity(@NonNull String name, @NonNull boolean isSelected) {
         this.name = name;
         this.isSelected = isSelected;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public long getId() {
         return id;
     }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public boolean isSelected() {
         return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     @NonNull

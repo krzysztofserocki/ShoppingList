@@ -24,9 +24,13 @@ import butterknife.OnClick;
 
 public class ListActivity extends AppCompatActivity {
 
-    private ListItemsViewModel listItemsViewModel;
-    private OneListAdapter oneListAdapter;
+    /**
+     * I WAS USING THIS INSTEAD OF KOTLIN CLASS.
+     */
 
+    public static final String EXTRA_LIST_ID = "EXTRA_LIST_ID";
+    public static final String EXTRA_LIST_IS_ARCHIVED = "EXTRA_LIST_IS_ARCHIVED";
+    public static final String EXTRA_LIST_NAME = "EXTRA_LIST_NAME";
     @BindView(R.id.save_list_btn)
     Button saveListBtn;
     @BindView(R.id.cancel_btn)
@@ -42,6 +46,8 @@ public class ListActivity extends AppCompatActivity {
     @BindView(R.id.one_list_recycler)
     RecyclerView recyclerView;
     int listId = 0;
+    private ListItemsViewModel listItemsViewModel;
+    private OneListAdapter oneListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,11 +144,6 @@ public class ListActivity extends AppCompatActivity {
             saveListBtn.setEnabled(true);
         }
     }
-
-
-    public static final String EXTRA_LIST_ID = "EXTRA_LIST_ID";
-    public static final String EXTRA_LIST_IS_ARCHIVED = "EXTRA_LIST_IS_ARCHIVED";
-    public static final String EXTRA_LIST_NAME = "EXTRA_LIST_NAME";
 
     public void changeStateOfItem(ItemEntity itemEntity, boolean isSelected) {
         listItemsViewModel.changeStateOfItem(itemEntity, isSelected);
