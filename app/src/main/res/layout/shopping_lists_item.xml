@@ -31,13 +31,15 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineV05"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/is_archived"
+    <ImageButton
+        android:id="@+id/delete_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guidelineV95"
         app:layout_constraintTop_toTopOf="parent"
-        app:useMaterialThemeColors="false" />
+        app:srcCompat="@drawable/delete_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

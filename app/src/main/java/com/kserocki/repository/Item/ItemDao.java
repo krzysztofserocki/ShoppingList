@@ -68,4 +68,17 @@ public abstract class ItemDao {
 
     @Query("UPDATE list SET name = :listName WHERE id = :listId")
     public abstract void updateListNameById(String listName, int listId);
+
+    public void deleteListItems(ListItems listItems) {
+        for (ItemEntity itemEntity : listItems.itemsList) {
+            deleteItemEntity(itemEntity);
+        }
+        deleteListEntity(listItems.list);
+    }
+
+    @Delete
+    public abstract void deleteListEntity(ListEntity listEntity);
+
+    @Delete
+    public abstract void deleteItemEntity(ItemEntity itemEntity);
 }

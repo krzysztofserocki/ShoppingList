@@ -88,4 +88,8 @@ public class ListItemsViewModel extends AndroidViewModel {
     public void updateListNameById(String listName, int listId) {
         itemRepository.updateListNameById(listName, listId);
     }
+
+    public void deleteList(ListItems listItems) {
+        itemRepository.deleteListItems(listItems);
+    }
 }

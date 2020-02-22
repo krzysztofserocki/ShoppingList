@@ -94,6 +94,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="15sp"
         app:cornerRadius="15dp"
+        app:icon="@drawable/delete_24dp"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -113,6 +116,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="15sp"
         app:cornerRadius="15dp"
+        app:icon="@drawable/back_24dp"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

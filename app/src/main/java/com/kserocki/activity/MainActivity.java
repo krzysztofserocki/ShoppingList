@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kserocki.R;
 import com.kserocki.adapter.ListItemsAdapter;
 import com.kserocki.model.ItemHelper;
+import com.kserocki.repository.List.ListItems;
 import com.kserocki.viewmodel.ListItemsViewModel;
 
 import java.util.ArrayList;
@@ -81,4 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void deleteList(ListItems listItems) {
+        listItemsViewModel.deleteList(listItems);
+    }
 }

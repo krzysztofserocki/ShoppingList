@@ -2,10 +2,12 @@ package com.kserocki.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -57,11 +59,13 @@ public class ListItemsAdapter extends ListAdapter<ListItems, ListItemsAdapter.Li
         ListItems listItems = getItem(position);
 
         holder.listNameTextView.setText(listItems.list.getName() + " - [" + listItems.itemsList.size() + "]");
-        holder.isArchivedCheckBox.setChecked(listItems.list.isArchived());
 
-        holder.isArchivedCheckBox.setOnCheckedChangeListener((compoundButton, b) ->
-                FancyToast.makeText(mainActivity, b + "", FancyToast.LENGTH_SHORT, FancyToast.INFO, false).show()
-        );
+        if (listItems.list.isArchived())
+            holder.listNameTextView.setPaintFlags(holder.listNameTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        else
+            holder.listNameTextView.setPaintFlags(Paint.HINTING_OFF);
+
+        holder.deleteBtn.setOnClickListener(view -> mainActivity.deleteList(listItems));
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(mainActivity, ListActivity.class);
@@ -79,8 +83,8 @@ public class ListItemsAdapter extends ListAdapter<ListItems, ListItemsAdapter.Li
     class ListHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.list_name)
         TextView listNameTextView;
-        @BindView(R.id.is_archived)
-        CheckBox isArchivedCheckBox;
+        @BindView(R.id.delete_btn)
+        ImageButton deleteBtn;
 
         ListHolder(@NonNull View view) {
             super(view);
